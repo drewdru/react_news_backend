@@ -1,6 +1,6 @@
-# expressjs-rest-template
+# react_news_backend
 
-expressjs-rest-template
+react_news_backend
 
 ### Prerequisites
 
@@ -23,7 +23,7 @@ To get up and running on local, simply do the following:
 
 ssh to server
 
-    $ cd ~/expressjs-rest-template
-    $ git pull origin develop
-    $ docker-compose -f docker-compose.dev.yml build
-    $ docker-compose -f docker-compose.dev.yml up -d
+    $ cd ~/react_news_backend
+    $ git pull origin main
+    $ docker-compose -f docker-compose.prod.yml build
+    $ docker-compose -f docker-compose.prod.yml up -d

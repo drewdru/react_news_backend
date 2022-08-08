@@ -37,12 +37,12 @@ RUN npm config set unsafe-perm true && npm install -g pm2
 
 ENV HOME=/home/app
 
-COPY backend/package*.json $HOME/expressjs-rest-template/
+COPY backend/package*.json $HOME/react_news_backend/
 RUN chown -R app:app $HOME/*
 
 USER app
 
-WORKDIR $HOME/expressjs-rest-template
+WORKDIR $HOME/react_news_backend
 
 COPY --from=builder /home/node/app/build/ ./build/
 

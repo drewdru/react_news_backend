@@ -13,16 +13,16 @@ networks:
 services:
   backend:
     restart: always
-    container_name: expressjs-rest-template_node_stage
+    container_name: react_news_backend_node_stage
     build:
       context: .
       dockerfile: compose/node/Dockerfile
     env_file:
       - .env
     volumes:
-      - /home/app/expressjs-rest-template/node_modules
-      - node_logs:/home/app/expressjs-rest-template/logs
-      - media_data:/home/app/expressjs-rest-template/uploads
+      - /home/app/react_news_backend/node_modules
+      - node_logs:/home/app/react_news_backend/logs
+      - media_data:/home/app/react_news_backend/uploads
     depends_on:
       - mongo
       - redis
@@ -33,7 +33,7 @@ services:
   mongo:
     restart: always
     image: mongo:4.2
-    container_name: expressjs-rest-template_mongo_stage
+    container_name: react_news_backend_mongo_stage
     env_file:
       - .env
     command: mongod --storageEngine wiredTiger
@@ -45,14 +45,14 @@ services:
 
   redis:
     image: redis:5.0.12-alpine
-    container_name: expressjs-rest-template_redis_local
+    container_name: react_news_backend_redis_local
     networks:
       - app-network
 
   nginx:
     restart: always
     build: ./compose/nginx
-    container_name: expressjs-rest-template_nginx_stage
+    container_name: react_news_backend_nginx_stage
     depends_on:
       - backend
     ports:

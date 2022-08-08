@@ -2,7 +2,7 @@
   "apps": [
     {
       "merge_logs": true,
-      "name": "expressjs-rest-template",
+      "name": "react_news_backend",
       "script": "dist/server.js",
       "exec_mode": "cluster",
       "instances": "max",

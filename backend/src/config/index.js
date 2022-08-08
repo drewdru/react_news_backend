@@ -58,11 +58,21 @@ export default {
     email: process.env.DEFAULT_ADMIN_EMAIL,
     password: process.env.DEFAULT_ADMIN_PASSWORD
   },
+
+  test: {
+    username: process.env.DEFAULT_TEST_USERNAME,
+    email: process.env.DEFAULT_TEST_EMAIL,
+    password: process.env.DEFAULT_TEST_PASSWORD
+  },
   
   apn: {
     keyId: process.env.APN_KEY_ID,
     teamId: process.env.APN_TEAM_ID,
     topic: process.env.APN_TOPIC,
     production: process.env.APN_PRODUCTION
+  },
+
+  rss: {
+    url: process.env.RSS_FEED_URL
   }
 };

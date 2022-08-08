@@ -19,13 +19,15 @@ export const signupValidationSchema = Joi.object({
 });
 
 export const loginValidationSchema = Joi.object({
-  email: Joi.string()
-    .email()
-    .required(),
+  email: Joi.string().required(),
   password: Joi.string()
     .min(4)
     .max(255)
     .required()
+});
+
+export const validateEmail = Joi.object({
+  email: Joi.string().email().required(),
 });
 
 export const logoutValidationSchema = Joi.object({

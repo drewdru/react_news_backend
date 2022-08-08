@@ -9,7 +9,7 @@ import util from 'util';
 import User from '../api/users/users.model';
 import logger from './logger';
 import config from '../config';
-
+import { validateEmail } from "../api/auth/auth.validation"
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -117,22 +117,26 @@ const localOpts = {
   usernameField: 'email'
 };
 
-const localStrategy = new LocalStrategy(localOpts, (email, password, done) => {
+const localStrategy = new LocalStrategy(localOpts, async (email, password, done) => {
   logger.info('========localStrategy========');
-  User.findOne({
-    email
-  })
-    .then(user => {
-      if (!user) {
-        return done(null, false);
-      } else if (!user.verifyPassword(password)) {
-        return done(null, false);
-      }
-      return done(null, user);
-    })
-    .catch(err => {
-      return done(err, false);
-    });
+  try {
+    email = email.toLowerCase()
+    const validation = validateEmail.validate({ email })
+    let user;
+    if (!validation.error) {
+      user = await User.findOne({ email });
+    } else {
+      user = await User.findOne({ username: email });
+    }
+    if (!user) {
+      return done(null, false);
+    } else if (!user.verifyPassword(password)) {
+      return done(null, false);
+    }
+    return done(null, user);
+  } catch(error) {
+    return done(error, false);
+  }
 });
 
 passport.use(localStrategy);

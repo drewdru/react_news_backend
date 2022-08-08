@@ -4,6 +4,8 @@ import Response from '../../helpers/response';
 import authService from './auth.service';
 import User from '../users/users.model';
 
+import { validateEmail } from "./auth.validation"
+
 export const signup = async (req, res, next) => {
   try {
     const data = req.body;
@@ -17,7 +19,15 @@ export const signup = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const data = req.body;
-    const user = await User.findOne({ email: data.email });
+    const email = data.email.toLowerCase();
+    let user;
+    const validation = validateEmail.validate({ email })
+    if (!validation.error) {
+      user = await User.findOne({ email });
+    } else {
+      user = await User.findOne({ username: email });
+    }
+    
     if (!user) {
       throw new Error(`User not found with this email or password`);
     }
